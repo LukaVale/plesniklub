@@ -20,8 +20,8 @@ builder.Services.AddSwaggerGen();
 
 
 // dodavanje kontaksta baze podataka - dependency injection
-builder.Services.AddDbContext<EdunovaContext> (options => { 
-    options.UseSqlServer(builder.Configuration.GetConnectionString("EdunovaContext"));
+builder.Services.AddDbContext<VrstePlesaContext> (options => { 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("VrstePlesaContext"));
 });
 
 

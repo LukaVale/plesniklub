@@ -2,7 +2,7 @@
 
 namespace Backend.Models
 {
-    public class VrstaPlesa : Entitet
+    public class VrstePlesa : Entitet
     {
         public string Naziv { get; set; } = "";
     }

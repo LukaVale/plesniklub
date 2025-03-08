@@ -6,16 +6,16 @@ namespace Backend.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class VrstaPlesaController : ControllerBase
+    public class VrstePlesaController : ControllerBase
     {
 
         // koristimo dependency injection
         // 1. definiramo privatno svojstvo
-        private readonly EdunovaContext _context;
+        private readonly VrstePlesaContext _context;
 
         // koristimo dependency injection
         // 2. proslijediš instancu kroz konstruktor
-        public VrstaPlesaController(EdunovaContext context)
+        public VrstePlesaController(VrstePlesaContext context)
         {
             _context = context;
         }
@@ -54,7 +54,7 @@ namespace Backend.Controllers
 
 
         [HttpPost]
-        public IActionResult Post(VrstaPlesa smjer)
+        public IActionResult Post(VrstePlesa smjer)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace Backend.Controllers
         [HttpPut]
         [Route("{sifra:int}")]
         [Produces("application/json")]
-        public IActionResult Put(int sifra, VrstaPlesa zanr)
+        public IActionResult Put(int sifra, VrstePlesa zanr)
         {
             try
             {
