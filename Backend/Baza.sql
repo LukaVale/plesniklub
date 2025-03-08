@@ -2,12 +2,12 @@
 
 SELECT name, collation_name FROM sys.databases;
 GO
-ALTER DATABASE db_ab2cab_filmoteka SET SINGLE_USER WITH
+ALTER DATABASE db_ab6221_ps SET SINGLE_USER WITH
 ROLLBACK IMMEDIATE;
 GO
-ALTER DATABASE db_ab2cab_filmoteka COLLATE Croatian_CI_AS;
+ALTER DATABASE db_ab6221_ps COLLATE Croatian_CI_AS;
 GO
-ALTER DATABASE db_ab2cab_filmoteka SET MULTI_USER;
+ALTER DATABASE db_ab6221_ps SET MULTI_USER;
 GO
 SELECT name, collation_name FROM sys.databases;
 GO
