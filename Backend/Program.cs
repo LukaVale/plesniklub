@@ -1,67 +1,52 @@
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.Intrinsics.Arm;
-
-// Dobro dodatno èitanje
-// 1. https://medium.com/@robhutton8/entity-framework-vs-repository-pattern-vs-unit-of-work-9fa093bd59e4
-// 2. https://www.thereformedprogrammer.net/is-the-repository-pattern-useful-with-entity-framework-core/
-// 3. https://medium.com/@rabinarayandev/should-you-use-uuids-for-database-keys-597b15b000bb
-// 4. https://blog.stackademic.com/goodbye-swagger-how-net-9-is-redefining-api-documentation-7488456a538f
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-// dodati ovu liniju za swagger
 builder.Services.AddSwaggerGen();
 
+// Dodaj CORS pravila
+builder.Services.AddCors(o => {
+    o.AddPolicy("CorsPolicy", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
-// dodavanje kontaksta baze podataka - dependency injection
-builder.Services.AddDbContext<VrstePlesaContext> (options => { 
+// Povezivanje baze podataka
+builder.Services.AddDbContext<VrstePlesaContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("VrstePlesaContext"));
 });
 
-
-// Svi se od svuda na sve moguce nacine mogu spojitina naš API
-// Èitati https://code-maze.com/aspnetcore-webapi-best-practices/
-//  https://levelup.gitconnected.com/cors-finally-explained-simply-ae42b52a70a3
-builder.Services.AddCors(o => { 
-
-    o.AddPolicy("CorsPolicy", builder =>
-    {
-        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-    });
-
-});
-
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-app.MapOpenApi();
+// KORAK 1: Prvo dodaj CORS!
+app.UseCors("CorsPolicy");
 
-
+// HTTPS redirekcija
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
-// dodati ove dvije linije za swagger
+// KORAK 2: Swagger mora biti prije mapiranja kontrolera
 app.UseSwagger();
-app.UseSwaggerUI(o => { 
+app.UseSwaggerUI(o => {
     o.EnableTryItOutByDefault();
     o.ConfigObject.AdditionalItems.Add("requestSnippetsEnabled", true);
 });
 
+// Autorizacija (ako ti uopæe treba)
+app.UseAuthorization();
+
+// KORAK 3: Mape kontrolera dolaze nakon CORS-a i Swaggera
 app.MapControllers();
 
-app.UseCors("CorsPolicy");
-// za potrebe produkcije
+// Produkcija
 app.UseStaticFiles();
 app.UseDefaultFiles();
 app.MapFallbackToFile("index.html");
-
 
 app.Run();
