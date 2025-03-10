@@ -22,8 +22,8 @@ export default function PlesoviPromjena(){
         dohvatiPles();
     })
 
-    async function dodaj(ples) {
-        const odgovor = VrstePlesaService.dodaj(ples);
+    async function uredi(ples) {
+        const odgovor = await VrstePlesaService.uredi(routeParams.sifra, ples);
         if(odgovor.greska){
             alert(odgovor.poruka)
             return
@@ -36,9 +36,9 @@ export default function PlesoviPromjena(){
 
         let podaci = new FormData(e.target);
 
-        dodaj(
+        uredi(
             {
-                "naziv": podaci.get('naziv')
+                naziv: podaci.get('naziv')
             }
         );
     }
@@ -62,7 +62,7 @@ export default function PlesoviPromjena(){
         </Col>
         <Col xs={6} s={6} md={9} lg={10} xl={6} xxl={6}>
             <Button variant="success" type="submit" className="siroko">
-                Dodaj Ples
+                Promjeni
             </Button>
         </Col>
     </Row>

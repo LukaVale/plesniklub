@@ -30,6 +30,26 @@ export default function PlesoviPregled(){
         dohvatiPlesove();
     }, [])
 
+    function obrisi(sifra)
+    {
+        if(!confirm('Sigurno odbrisati'))
+        {
+            return;
+        }
+
+        obrisi(sifra);
+    }
+
+    async function obrisi(sifra) {
+        const odgovor = await VrstaPlesaService.obrisi(sifra);
+        if(odgovor.greska)
+            {
+                alert(odgovor.poruka)
+                return
+            }        
+            dohvatiPlesove();
+    }
+
     return(
         <>
         <Link
@@ -55,6 +75,11 @@ export default function PlesoviPregled(){
                             <Button onClick={()=>navigate(`/plesovi/${ples.sifra}`)}>
                                 Promjena
                             </Button>
+                            &nbsp;&nbsp;&nbsp;
+                            <Button 
+                            variant="danger"
+                            onClick={()=>obrisi(ples.sifra)}>
+                                Obriši</Button>
                         </td>
                     </tr>
                 ))}

@@ -72,7 +72,7 @@ namespace Backend.Controllers
         [HttpPut]
         [Route("{sifra:int}")]
         [Produces("application/json")]
-        public IActionResult Put(int sifra, VrstePlesa zanr)
+        public IActionResult Put(int sifra, VrstePlesa naziv)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace Backend.Controllers
                     return NotFound();
                 }
 
-                s.Naziv = zanr.Naziv;
+                s.Naziv = naziv.Naziv;
 
                 _context.VrstePlesa.Update(s);
                 _context.SaveChanges();

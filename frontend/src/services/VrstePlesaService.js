@@ -31,8 +31,22 @@ async function dodaj(ples){
     .catch(()=>{return {greska:true, poruka: 'Problem kod dodavanja'}})
 }
 
+async function uredi(sifra, ples){
+    return HttpService.put('/VrstePlesa/'+sifra,ples)
+    .then(()=>{return {greska:false, poruka:'Uređeno'}})
+    .catch(()=>{return {greska:true, poruka: 'Problem kod uređivanja'}})
+}
+
+async function obrisi(sifra){
+    return HttpService.delete('/VrstePlesa/'+sifra)
+    .then(()=>{return {greska:false, poruka:'Obrisano'}})
+    .catch(()=>{return {greska:true, poruka: 'Problem kod uređivanja'}})
+}
+
 export default {
     get,
     getBySifra,
+    uredi,
+    obrisi,
     dodaj
 }
