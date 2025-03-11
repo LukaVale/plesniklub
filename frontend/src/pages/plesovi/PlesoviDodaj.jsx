@@ -32,7 +32,9 @@ export default function PlesoviDodaj(){
     
     return(
     <>
-    Dodavanje smjera
+    <h4 className="text-center">
+    Dodavanje novog plesa
+        </h4>
     <Form onSubmit={odradiSubmit}>
 
         <Form.Group controlId="naziv">

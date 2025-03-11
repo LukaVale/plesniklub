@@ -20,7 +20,7 @@ export default function PlesoviPromjena(){
 
     useEffect(()=>{
         dohvatiPles();
-    })
+    },[])
 
     async function uredi(ples) {
         const odgovor = await VrstePlesaService.uredi(routeParams.sifra, ples);
@@ -45,12 +45,15 @@ export default function PlesoviPromjena(){
     
     return(
     <>
-    Dodavanje smjera
+
+    <h4 className="text-center mb-2">
+    Promjena plesa <b> {ples.naziv} </b>
+    </h4>
     <Form onSubmit={odradiSubmit}>
 
         <Form.Group controlId="naziv">
-            <Form.Label>Naziv</Form.Label>
-            <Form.Control type="text" name="naziv" required defaultValue={ples.naziv}/>
+            <Form.Label>Unesi novi naziv plesa</Form.Label>
+            <Form.Control type="text" name="naziv" required placeholder={ples.naziv} />
         </Form.Group>
         <hr />
         <Row>

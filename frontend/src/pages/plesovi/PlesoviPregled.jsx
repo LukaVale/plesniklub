@@ -52,10 +52,13 @@ export default function PlesoviPregled(){
 
     return(
         <>
-        <Link
+        <div className="text-center mt-1 mb-1">
+        <Link 
         to={RouteNames.PLES_NOVI}
-        className="btn btn-success siroko"
+        className="btn btn-success xs={6} s={6} md={3} lg={2} xl={6} xxl={6}"
         >Dodaj novi ples</Link>
+        </div>
+        
         <Table striped bordered hover responsive>
             <thead>
                 <tr>
@@ -68,11 +71,11 @@ export default function PlesoviPregled(){
             <tbody>
                 {plesovi && plesovi.map((ples,index)=>(
                     <tr key={index}>
-                        <td>
+                        <td >
                             {ples.naziv}
                         </td>
                         <td>
-                            <Button onClick={()=>navigate(`/plesovi/${ples.sifra}`)}>
+                            <Button  onClick={()=>navigate(`/plesovi/${ples.sifra}`)}>
                                 Promjena
                             </Button>
                             &nbsp;&nbsp;&nbsp;
